@@ -212,16 +212,6 @@ Após executar o script SQL, você pode fazer login com:
 - `atividade.setor_id` → `setor_produtivo.id` (CASCADE)
 - `registro_producao.setor_id` → `setor_produtivo.id` (CASCADE)
 
-## Boas Práticas Aplicadas
-
-1. **Separação de responsabilidades**: MVC bem definido
-2. **Try-with-resources**: Fechamento automático de conexões
-3. **PreparedStatement**: Prevenção de SQL Injection
-4. **Validações na camada Service**: Não no Controller
-5. **Mensagens de erro amigáveis**: Alerts informativos
-6. **Comentários em português**: Documentação clara
-7. **Nomenclatura consistente**: Padrão Java
-
 ## Autor
 
 Projeto desenvolvido para fins acadêmicos - EAJ/UFRN
