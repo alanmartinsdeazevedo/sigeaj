@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+Tela de CRUD de Setores Produtivos
+VIEW no padrão MVC - formulário + tabela para gerenciar setores.
+Pode ser editado no Scene Builder.
+-->
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="br.edu.ufrn.sigeaj.controller.SetorProdutivoController"
+            prefHeight="600.0" prefWidth="900.0">
+
+    <top>
+        <VBox style="-fx-background-color: #3498db;">
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0"/>
+            </padding>
+            <Label text="Gerenciar Setores Produtivos"
+                   style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="20.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+
+            <!-- Formulário -->
+            <VBox spacing="10.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 5;">
+                <Label text="Dados do Setor" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Separator/>
+
+                <GridPane hgap="10.0" vgap="10.0">
+                    <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="txtNome" promptText="Ex: Piscicultura"
+                              GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="300"/>
+
+                    <Label text="Descrição:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextArea fx:id="txtDescricao" promptText="Descreva o setor produtivo"
+                             GridPane.columnIndex="1" GridPane.rowIndex="1"
+                             prefRowCount="3" prefWidth="300"/>
+
+                    <Label text="Responsável:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <TextField fx:id="txtResponsavel" promptText="Nome do responsável"
+                              GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="300"/>
+                </GridPane>
+
+                <!-- Botões de ação -->
+                <HBox spacing="10.0">
+                    <Button fx:id="btnNovo" text="Novo" onAction="#onNovo"
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                    <Button fx:id="btnSalvar" text="Salvar" onAction="#onSalvar"
+                            style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+                    <Button text="Excluir" onAction="#onExcluir"
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                    <Button fx:id="btnCancelar" text="Cancelar" onAction="#onCancelar"
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                </HBox>
+            </VBox>
+
+            <!-- Tabela de setores -->
+            <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 5;">
+                <Label text="Setores Cadastrados" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Separator/>
+
+                <TableView fx:id="tblSetores" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colNome" text="Nome" prefWidth="200"/>
+                        <TableColumn fx:id="colDescricao" text="Descrição" prefWidth="350"/>
+                        <TableColumn fx:id="colResponsavel" text="Responsável" prefWidth="200"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

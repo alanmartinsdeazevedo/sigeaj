@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+Tela de CRUD de Registros de Produção
+VIEW no padrão MVC - gerenciamento de registros de produção.
+-->
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="br.edu.ufrn.sigeaj.controller.RegistroProducaoController"
+            prefHeight="600.0" prefWidth="1000.0">
+
+    <top>
+        <VBox style="-fx-background-color: #e67e22;">
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0"/>
+            </padding>
+            <Label text="Gerenciar Registros de Produção"
+                   style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="20.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+
+            <!-- Formulário -->
+            <VBox spacing="10.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 5;">
+                <Label text="Dados do Registro de Produção" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Separator/>
+
+                <GridPane hgap="10.0" vgap="10.0">
+                    <Label text="Setor:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <ComboBox fx:id="cmbSetor" promptText="Selecione o setor"
+                             GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="300"/>
+
+                    <Label text="Data Registro:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <DatePicker fx:id="dtpDataRegistro" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                               prefWidth="300"/>
+
+                    <Label text="Produto:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <TextField fx:id="txtProduto" promptText="Ex: Ovos, Leite, Peixes"
+                              GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="300"/>
+
+                    <Label text="Quantidade:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <TextField fx:id="txtQuantidade" promptText="Ex: 150.50"
+                              GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="150"/>
+
+                    <Label text="Unidade:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                    <TextField fx:id="txtUnidade" promptText="Ex: kg, L, unidades"
+                              GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="150"/>
+                </GridPane>
+
+                <!-- Botões de ação -->
+                <HBox spacing="10.0">
+                    <Button text="Novo" onAction="#onNovo"
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                    <Button text="Salvar" onAction="#onSalvar"
+                            style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+                    <Button text="Excluir" onAction="#onExcluir"
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                    <Button text="Cancelar" onAction="#onCancelar"
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                </HBox>
+            </VBox>
+
+            <!-- Tabela de registros -->
+            <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 5;">
+                <Label text="Registros de Produção Cadastrados" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Separator/>
+
+                <TableView fx:id="tblRegistros" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colSetor" text="Setor" prefWidth="150"/>
+                        <TableColumn fx:id="colData" text="Data" prefWidth="120"/>
+                        <TableColumn fx:id="colProduto" text="Produto" prefWidth="200"/>
+                        <TableColumn fx:id="colQuantidade" text="Quantidade" prefWidth="120"/>
+                        <TableColumn fx:id="colUnidade" text="Unidade" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>
