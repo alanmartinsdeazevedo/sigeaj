@@ -20,9 +20,6 @@ public class SetorProdutivoService {
 
     /**
      * Cadastra um novo setor produtivo.
-     * REGRAS DE NEGÓCIO:
-     * - Nome é obrigatório e deve ser único
-     * - Descrição é obrigatória
      */
     public void cadastrar(SetorProdutivo setor) throws Exception {
         validarCamposObrigatorios(setor);
@@ -43,7 +40,7 @@ public class SetorProdutivoService {
     }
 
     /**
-     * Atualiza um setor produtivo existente.
+     * Atualiza um setor produtivo.
      */
     public void atualizar(SetorProdutivo setor) throws Exception {
         if (setor.getId() == null) {
@@ -68,8 +65,7 @@ public class SetorProdutivoService {
     }
 
     /**
-     * Remove um setor produtivo.
-     * ATENÇÃO: Remove também todas as atividades e registros relacionados (CASCADE).
+     * Remove um setor produtivo (CASCADE).
      */
     public void remover(Long id) throws Exception {
         if (id == null) {
@@ -108,8 +104,7 @@ public class SetorProdutivoService {
     }
 
     /**
-     * FILTRO: Busca setores por nome.
-     * Atende requisito 4.b - filtros de consulta.
+     * 4.b - FILTRO: Busca setores por nome.
      */
     public List<SetorProdutivo> buscarPorNome(String nome) throws Exception {
         if (nome == null || nome.trim().isEmpty()) {

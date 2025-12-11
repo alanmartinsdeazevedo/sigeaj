@@ -9,15 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO (Data Access Object) para a entidade Usuario.
+ * DAO para a entidade Usuario.
  */
 public class UsuarioDAO {
 
     /**
-     * Insere um novo usuário no banco de dados.
-     * @param usuario objeto Usuario a ser inserido
-     * @return true se inserido com sucesso
-     * @throws SQLException em caso de erro no banco
+     * Insere um novo usuário.
      */
     public boolean inserir(Usuario usuario) throws SQLException {
         String sql = "INSERT INTO usuario (nome, email, senha, perfil) VALUES (?, ?, ?, ?)";
@@ -46,10 +43,7 @@ public class UsuarioDAO {
     }
 
     /**
-     * Atualiza um usuário existente no banco de dados.
-     * @param usuario objeto Usuario com dados atualizados
-     * @return true se atualizado com sucesso
-     * @throws SQLException em caso de erro no banco
+     * Atualiza um usuário.
      */
     public boolean atualizar(Usuario usuario) throws SQLException {
         String sql = "UPDATE usuario SET nome = ?, email = ?, senha = ?, perfil = ? WHERE id = ?";
@@ -68,10 +62,7 @@ public class UsuarioDAO {
     }
 
     /**
-     * Remove um usuário do banco de dados.
-     * @param id ID do usuário a ser removido
-     * @return true se removido com sucesso
-     * @throws SQLException em caso de erro no banco
+     * Remove um usuário.
      */
     public boolean remover(Long id) throws SQLException {
         String sql = "DELETE FROM usuario WHERE id = ?";
@@ -86,9 +77,6 @@ public class UsuarioDAO {
 
     /**
      * Busca um usuário por ID.
-     * @param id ID do usuário
-     * @return Usuario encontrado ou null se não existir
-     * @throws SQLException em caso de erro no banco
      */
     public Usuario buscarPorId(Long id) throws SQLException {
         String sql = "SELECT * FROM usuario WHERE id = ?";
@@ -109,11 +97,7 @@ public class UsuarioDAO {
     }
 
     /**
-     * Busca um usuário por email e senha (para login).
-     * @param email email do usuário
-     * @param senha senha do usuário
-     * @return Usuario encontrado ou null se credenciais inválidas
-     * @throws SQLException em caso de erro no banco
+     * Busca um usuário por email e senha (login).
      */
     public Usuario buscarPorEmailESenha(String email, String senha) throws SQLException {
         String sql = "SELECT * FROM usuario WHERE email = ? AND senha = ?";
@@ -135,9 +119,7 @@ public class UsuarioDAO {
     }
 
     /**
-     * Lista todos os usuários cadastrados.
-     * @return List de Usuario
-     * @throws SQLException em caso de erro no banco
+     * Lista todos os usuários.
      */
     public List<Usuario> listarTodos() throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
@@ -157,9 +139,6 @@ public class UsuarioDAO {
 
     /**
      * Verifica se já existe um usuário com o email informado.
-     * @param email email a verificar
-     * @return true se o email já existe
-     * @throws SQLException em caso de erro no banco
      */
     public boolean existeEmail(String email) throws SQLException {
         String sql = "SELECT COUNT(*) FROM usuario WHERE email = ?";
@@ -180,10 +159,7 @@ public class UsuarioDAO {
     }
 
     /**
-     * Método auxiliar para extrair um objeto Usuario do ResultSet.
-     * @param rs ResultSet posicionado no registro
-     * @return Usuario extraído
-     * @throws SQLException em caso de erro
+     * Método auxiliar - extrair um objeto Usuario da consulta.
      */
     private Usuario extrairUsuarioDoResultSet(ResultSet rs) throws SQLException {
         Usuario usuario = new Usuario();

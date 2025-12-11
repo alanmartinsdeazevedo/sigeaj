@@ -2,8 +2,7 @@ package br.edu.ufrn.sigeaj.model;
 
 /**
  * Classe de modelo que representa um usuário do sistema.
- * Demonstra ENCAPSULAMENTO - todos os atributos são privados
- * e acessados apenas via getters/setters.
+ * ENCAPSULAMENTO - todos os atributos privados, acessados apenas via getters/setters.
  */
 public class Usuario {
     private Long id;
@@ -25,7 +24,7 @@ public class Usuario {
         this.perfil = perfil;
     }
 
-    // Construtor sem ID (para inserções)
+    // Construtor sem ID (inserções)
     public Usuario(String nome, String email, String senha, PerfilUsuario perfil) {
         this.nome = nome;
         this.email = email;
@@ -33,7 +32,7 @@ public class Usuario {
         this.perfil = perfil;
     }
 
-    // Getters e Setters - demonstração de encapsulamento
+    // Getters e Setters
     public Long getId() {
         return id;
     }

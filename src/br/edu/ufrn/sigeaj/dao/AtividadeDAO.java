@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO para a entidade Atividade.
- * CAMADA DE PERSISTÊNCIA - responsável por operações CRUD de atividades.
- * Demonstra ASSOCIAÇÃO entre tabelas através de JOIN.
+ * DAO para a entidade Atividade. - operações CRUD de atividades.
  */
 public class AtividadeDAO {
 
@@ -197,7 +195,7 @@ public class AtividadeDAO {
     }
 
     /**
-     * Método auxiliar para extrair um objeto Atividade do ResultSet.
+     * Método auxiliar para extrair um objeto Atividade.
      */
     private Atividade extrairAtividadeDoResultSet(ResultSet rs) throws SQLException {
         Atividade atividade = new Atividade();

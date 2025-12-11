@@ -25,11 +25,6 @@ public class RegistroProducaoService {
 
     /**
      * Cadastra um novo registro de produção.
-     * REGRAS DE NEGÓCIO:
-     * - Todos os campos obrigatórios devem ser preenchidos
-     * - Setor deve existir
-     * - Quantidade deve ser maior que zero
-     * - Data não pode ser futura
      */
     public void cadastrar(RegistroProducao registro) throws Exception {
         validarCamposObrigatorios(registro);
@@ -119,8 +114,7 @@ public class RegistroProducaoService {
     }
 
     /**
-     * FILTRO: Busca registros por produto.
-     * Atende requisito 4.b - filtros de consulta.
+     * 4.b - FILTRO: Busca registros por produto.
      */
     public List<RegistroProducao> buscarPorProduto(String produto) throws Exception {
         if (produto == null || produto.trim().isEmpty()) {
@@ -166,7 +160,7 @@ public class RegistroProducaoService {
             throw new Exception("Quantidade deve ser maior que zero");
         }
 
-        // Validação adicional: quantidade não pode ser absurdamente grande
+        // Validação adicional: quantidade não pode ser grande demais
         if (quantidade.compareTo(new BigDecimal("999999.99")) > 0) {
             throw new Exception("Quantidade excede o limite permitido");
         }
@@ -184,8 +178,8 @@ public class RegistroProducaoService {
             throw new Exception("Data de registro não pode ser futura");
         }
 
-        // Opcional: não permitir registros muito antigos
-        LocalDate dataLimite = LocalDate.now().minusYears(10);
+        // Limitar registros muito antigos
+        LocalDate dataLimite = LocalDate.now().minusMonths(1);
         if (data.isBefore(dataLimite)) {
             throw new Exception("Data de registro não pode ser anterior a " + dataLimite);
         }

@@ -15,7 +15,6 @@ import java.time.LocalDate;
 
 /**
  * Controller da tela de CRUD de Atividades.
- * CAMADA VIEW - demonstra uso de ComboBox para relacionamento com SetorProdutivo.
  */
 public class AtividadeController {
 

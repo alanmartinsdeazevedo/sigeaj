@@ -9,42 +9,27 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
- * Classe principal do sistema SIGEAJ.
- * Demonstra o uso de JavaFX Application com padrão MVC.
- *
- * FLUXO DE EXECUÇÃO:
- * 1. Inicia a aplicação JavaFX
- * 2. Testa a conexão com o banco de dados
- * 3. Carrega a tela de login (VIEW - login.fxml)
- * 4. O LoginController (CONTROLLER) gerencia a lógica da tela
- * 5. O UsuarioService (SERVICE) valida as credenciais
- * 6. O UsuarioDAO (DAO) acessa o banco de dados
+ * Classe principal do sistema.
  */
 public class Main extends Application {
 
     /**
-     * Método principal que inicia a aplicação JavaFX.
-     * É chamado automaticamente pelo JavaFX após o método main().
-     *
-     * FLUXO ATUALIZADO (atende requisito 4.a):
-     * 1. Exibe tela inicial (Splash Screen) com logo e identificação
-     * 2. Usuário clica em "Continuar"
-     * 3. Sistema carrega tela de login
+     * Método principal que inicia a aplicação.
      */
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Testa a conexão com o banco de dados antes de iniciar
+            // Testa a conexão com o banco de dados
             if (!testarConexaoBanco()) {
                 exibirErroConexao();
                 return;
             }
 
-            // Carrega o arquivo FXML da tela inicial (Splash Screen)
+            // Carrega o arquivo Splash Screen
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ufrn/sigeaj/view/splash.fxml"));
             Parent root = loader.load();
 
-            // Configura a cena e o palco (janela)
+            // Configura a cena e palco
             Scene scene = new Scene(root);
             primaryStage.setTitle("SIGEAJ - Sistema de Gestão de Setores Produtivos");
             primaryStage.setScene(scene);
@@ -69,7 +54,6 @@ public class Main extends Application {
 
     /**
      * Testa a conexão com o banco de dados PostgreSQL.
-     * @return true se a conexão foi bem-sucedida
      */
     private boolean testarConexaoBanco() {
         System.out.println("Testando conexão com o banco de dados...");
@@ -92,26 +76,19 @@ public class Main extends Application {
         alert.setTitle("Erro de Conexão");
         alert.setHeaderText("Não foi possível conectar ao banco de dados");
         alert.setContentText(
-            "Verifique se:\n" +
-            "1. O PostgreSQL está instalado e rodando\n" +
-            "2. O banco de dados 'sigeaj' foi criado\n" +
-            "3. As credenciais em ConnectionFactory estão corretas\n" +
-            "4. O driver JDBC do PostgreSQL está no classpath\n\n" +
-            "Consulte o arquivo database/README.md para instruções."
+            "Verifique a conexão com o banco de dados\n"
         );
         alert.showAndWait();
     }
 
     /**
      * Método de entrada da aplicação Java.
-     * Lança a aplicação JavaFX.
      */
     public static void main(String[] args) {
         System.out.println("Iniciando SIGEAJ - Sistema de Gestão de Setores Produtivos da EAJ");
         System.out.println("Versão: 1.0");
         System.out.println("========================================");
 
-        // Inicia a aplicação JavaFX
         launch(args);
     }
 }

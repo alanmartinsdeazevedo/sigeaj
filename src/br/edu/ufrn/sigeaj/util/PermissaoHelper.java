@@ -5,8 +5,7 @@ import br.edu.ufrn.sigeaj.model.PerfilUsuario;
 import br.edu.ufrn.sigeaj.model.Usuario;
 
 /**
- * Classe utilitária para verificar permissões dos usuários.
- * Implementa controle de acesso baseado em perfil (RBAC - Role-Based Access Control).
+ * Classe utilitária - verificar permissões dos usuários.
  */
 public class PermissaoHelper {
 

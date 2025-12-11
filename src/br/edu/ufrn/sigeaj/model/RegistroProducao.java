@@ -5,13 +5,11 @@ import java.time.LocalDate;
 
 /**
  * Classe de modelo que representa um registro de produção de um setor.
- * Exemplos: produção de ovos, leite, peixes, hortaliças.
- * Demonstra ASSOCIAÇÃO e uso de BigDecimal para valores monetários/quantidades precisas.
  */
 public class RegistroProducao {
     private Long id;
-    private Long setorId; // Chave estrangeira para SetorProdutivo
-    private String setorNome; // Para exibição na interface
+    private Long setorId; // FK para SetorProdutivo
+    private String setorNome;
     private LocalDate dataRegistro;
     private String produto;
     private BigDecimal quantidade;

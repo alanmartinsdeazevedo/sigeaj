@@ -11,7 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * Controller da tela de CRUD de Setores Produtivos.
- * CAMADA VIEW - demonstra separação MVC com Service fazendo validações.
  */
 public class SetorProdutivoController {
 

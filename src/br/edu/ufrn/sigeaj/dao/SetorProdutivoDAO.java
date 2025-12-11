@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * DAO para a entidade SetorProdutivo.
- * CAMADA DE PERSISTÊNCIA - responsável por operações CRUD de setores produtivos.
  */
 public class SetorProdutivoDAO {
 

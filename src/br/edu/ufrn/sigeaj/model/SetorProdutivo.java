@@ -1,9 +1,7 @@
 package br.edu.ufrn.sigeaj.model;
 
 /**
- * Classe de modelo que representa um setor produtivo da EAJ.
- * Exemplos: Piscicultura, Avicultura, Bovinos, Suínos, Hortaliças.
- * Demonstra ENCAPSULAMENTO e COMPOSIÇÃO (pode ter relacionamento com Usuario).
+ * Classe de modelo que representa um setor produtivo.
  */
 public class SetorProdutivo {
     private Long id;
@@ -23,7 +21,7 @@ public class SetorProdutivo {
         this.responsavel = responsavel;
     }
 
-    // Construtor sem ID (para inserções)
+    // Construtor sem ID (inserções)
     public SetorProdutivo(String nome, String descricao, String responsavel) {
         this.nome = nome;
         this.descricao = descricao;
@@ -65,6 +63,6 @@ public class SetorProdutivo {
 
     @Override
     public String toString() {
-        return nome; // Útil para exibição em ComboBox
+        return nome;
     }
 }

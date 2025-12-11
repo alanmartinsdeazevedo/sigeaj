@@ -16,7 +16,6 @@ import java.time.LocalDate;
 
 /**
  * Controller da tela de CRUD de Registros de Produção.
- * CAMADA VIEW - demonstra uso de BigDecimal para valores numéricos precisos.
  */
 public class RegistroProducaoController {
 

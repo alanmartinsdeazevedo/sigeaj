@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 
 /**
  * Controller da tela principal (menu).
- * CAMADA VIEW - gerencia a navegação entre as diferentes telas do sistema.
  */
 public class MainController {
 

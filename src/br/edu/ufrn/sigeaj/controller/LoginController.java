@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 
 /**
  * Controller da tela de login.
- * CAMADA VIEW - responsável por gerenciar a interface
- * gráfica e intermediar a comunicação entre a VIEW (FXML) e a lógica de negócio (Service).
  */
 public class LoginController {
 

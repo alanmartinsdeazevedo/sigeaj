@@ -8,9 +8,6 @@ import java.util.List;
 
 /**
  * Classe de serviço para Usuario.
- * CAMADA DE NEGÓCIO - contém as regras de negócio e validações.
- * Faz a mediação entre os Controllers (VIEW) e os DAOs (PERSISTÊNCIA).
- * Implementa o padrão MVC separando a lógica de negócio da apresentação.
  */
 public class UsuarioService {
 
@@ -22,12 +19,6 @@ public class UsuarioService {
 
     /**
      * Realiza o login do usuário validando email e senha.
-     * REGRA DE NEGÓCIO: Autentica credenciais no banco de dados.
-     *
-     * @param email email do usuário
-     * @param senha senha do usuário
-     * @return Usuario se login bem-sucedido, null se credenciais inválidas
-     * @throws Exception se houver erro na validação ou banco de dados
      */
     public Usuario login(String email, String senha) throws Exception {
         // Validações de entrada
@@ -59,11 +50,6 @@ public class UsuarioService {
 
     /**
      * Cadastra um novo usuário.
-     * REGRAS DE NEGÓCIO:
-     * - Todos os campos obrigatórios devem ser preenchidos
-     * - Email deve ser único no sistema
-     * - Email deve ter formato válido
-     * - Senha deve ter no mínimo 6 caracteres
      */
     public void cadastrar(Usuario usuario) throws Exception {
         // Validações
@@ -88,7 +74,7 @@ public class UsuarioService {
     }
 
     /**
-     * Atualiza um usuário existente.
+     * Atualiza um usuário.
      */
     public void atualizar(Usuario usuario) throws Exception {
         if (usuario.getId() == null) {
