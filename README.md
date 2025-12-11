@@ -96,13 +96,9 @@ CREATE DATABASE sigeaj;
 \c sigeaj
 ```
 
-### 3. Executar o script SQL
+### 3. Popular banco de dados
 
-```bash
-psql -U postgres -d sigeaj -f database/create_tables.sql
-```
-
-Ou copie o conteúdo de `database/create_tables.sql` e execute no pgAdmin.
+Copie o conteúdo de `database/create_tables.sql` e execute no pgAdmin.
 
 ### 4. Configurar a conexão
 
@@ -111,7 +107,7 @@ Edite o arquivo `src/br/edu/ufrn/sigeaj/util/ConnectionFactory.java`:
 ```java
 private static final String URL = "jdbc:postgresql://localhost:5432/sigeaj";
 private static final String USER = "postgres";
-private static final String PASSWORD = "sua_senha_aqui";
+private static final String PASSWORD = "senha";
 ```
 
 ## Como Executar
@@ -129,7 +125,7 @@ mvn javafx:run
 ### Usando IDE
 
 1. Importe o projeto como projeto Maven
-2. Configure o JDK 11+
+2. Configure o JDK 21+
 3. Execute a classe `Main.java`
 
 ### Compilar JAR

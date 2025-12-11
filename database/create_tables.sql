@@ -48,7 +48,7 @@ CREATE INDEX IF NOT EXISTS idx_registro_data ON registro_producao(data_registro)
 -- Seed usuários
 INSERT INTO usuario (nome, email, senha, perfil)
 VALUES ('Administrador', 'admin@ufrn.edu.br', 'admin123', 'ADMIN'),
-('Operador', 'operador@ufrn.edu.br', 'operador123', 'ADMIN')
+('Operador', 'operador@ufrn.edu.br', 'operador123', 'OPERADOR')
 ON CONFLICT (email) DO NOTHING;
 
 -- Seed setores de exemplo
