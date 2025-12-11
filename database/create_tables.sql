@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS registro_producao (
         REFERENCES setor_produtivo(id) ON DELETE CASCADE
 );
 
--- Índices melhorar performance
+-- Índices para melhor performance
 CREATE INDEX IF NOT EXISTS idx_atividade_setor ON atividade(setor_id);
 CREATE INDEX IF NOT EXISTS idx_atividade_data ON atividade(data_execucao);
 CREATE INDEX IF NOT EXISTS idx_registro_setor ON registro_producao(setor_id);

@@ -2,6 +2,7 @@ package br.edu.ufrn.sigeaj.controller;
 
 import br.edu.ufrn.sigeaj.model.SetorProdutivo;
 import br.edu.ufrn.sigeaj.service.SetorProdutivoService;
+import br.edu.ufrn.sigeaj.util.PermissaoHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -53,6 +54,9 @@ public class SetorProdutivoController {
     @FXML
     private Button btnLimparBusca;
 
+    @FXML
+    private Button btnExcluir;
+
     private final SetorProdutivoService setorService;
     private final ObservableList<SetorProdutivo> setores;
     private SetorProdutivo setorSelecionado;
@@ -64,12 +68,26 @@ public class SetorProdutivoController {
 
     /**
      * Inicializa a tela, configurando a tabela e carregando dados.
+     * Também configura as permissões baseadas no perfil do usuário.
      */
     @FXML
     public void initialize() {
         configurarTabela();
         carregarSetores();
         configurarSelecaoTabela();
+        configurarPermissoes();
+    }
+
+    /**
+     * Configura as permissões baseadas no perfil do usuário.
+     * OPERADOR: não pode excluir registros.
+     */
+    private void configurarPermissoes() {
+        if (!PermissaoHelper.podeExcluir()) {
+            btnExcluir.setDisable(true);
+            btnExcluir.setStyle("-fx-background-color: #bdc3c7; -fx-text-fill: white; -fx-opacity: 0.6;");
+            btnExcluir.setTooltip(new Tooltip("Apenas ADMINISTRADORES podem excluir"));
+        }
     }
 
     /**
@@ -180,6 +198,7 @@ public class SetorProdutivoController {
 
     /**
      * Botão Excluir - remove um setor selecionado.
+     * CONTROLE DE ACESSO: Apenas ADMIN pode excluir.
      */
     @FXML
     public void onExcluir() {

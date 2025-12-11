@@ -4,6 +4,7 @@ import br.edu.ufrn.sigeaj.model.RegistroProducao;
 import br.edu.ufrn.sigeaj.model.SetorProdutivo;
 import br.edu.ufrn.sigeaj.service.RegistroProducaoService;
 import br.edu.ufrn.sigeaj.service.SetorProdutivoService;
+import br.edu.ufrn.sigeaj.util.PermissaoHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -55,6 +56,9 @@ public class RegistroProducaoController {
     @FXML
     private TableColumn<RegistroProducao, String> colUnidade;
 
+    @FXML
+    private Button btnExcluir;
+
     private final RegistroProducaoService registroService;
     private final SetorProdutivoService setorService;
     private final ObservableList<RegistroProducao> registros;
@@ -72,6 +76,15 @@ public class RegistroProducaoController {
         carregarSetores();
         carregarRegistros();
         configurarSelecaoTabela();
+        configurarPermissoes();
+    }
+
+    private void configurarPermissoes() {
+        if (!PermissaoHelper.podeExcluir()) {
+            btnExcluir.setDisable(true);
+            btnExcluir.setStyle("-fx-background-color: #bdc3c7; -fx-text-fill: white; -fx-opacity: 0.6;");
+            btnExcluir.setTooltip(new Tooltip("Apenas ADMINISTRADORES podem excluir"));
+        }
     }
 
     private void configurarTabela() {

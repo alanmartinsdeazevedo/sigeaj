@@ -18,4 +18,5 @@ br\edu\ufrn\sigeaj\controller\SplashController.class
 br\edu\ufrn\sigeaj\util\ConnectionFactory.class
 br\edu\ufrn\sigeaj\service\AtividadeService.class
 br\edu\ufrn\sigeaj\model\PerfilUsuario.class
+br\edu\ufrn\sigeaj\util\PermissaoHelper.class
 br\edu\ufrn\sigeaj\dao\SetorProdutivoDAO.class

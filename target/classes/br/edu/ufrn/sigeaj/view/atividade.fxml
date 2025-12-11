@@ -59,7 +59,7 @@ Tela de CRUD de Atividades
                             style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
                     <Button text="Salvar" onAction="#onSalvar"
                             style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
-                    <Button text="Excluir" onAction="#onExcluir"
+                    <Button fx:id="btnExcluir" text="Excluir" onAction="#onExcluir"
                             style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
                     <Button text="Cancelar" onAction="#onCancelar"
                             style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>

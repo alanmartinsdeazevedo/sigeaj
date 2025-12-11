@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Classe de serviço para Atividade.
- * CAMADA DE NEGÓCIO - validações e regras de negócio para atividades.
+ * Classe de serviço para Atividade. - validações e regras de negócio
  */
 public class AtividadeService {
 
@@ -116,8 +115,7 @@ public class AtividadeService {
     }
 
     /**
-     * FILTRO: Busca atividades por período de data.
-     * Atende requisito 4.b - filtros de consulta.
+     * 4.b - Busca atividades por período de data.
      */
     public List<Atividade> buscarPorPeriodo(LocalDate dataInicio, LocalDate dataFim) throws Exception {
         if (dataInicio == null || dataFim == null) {
@@ -136,8 +134,7 @@ public class AtividadeService {
     }
 
     /**
-     * FILTRO: Busca atividades por tipo.
-     * Atende requisito 4.b - filtros de consulta.
+     * 4.b - Busca atividades por tipo.
      */
     public List<Atividade> buscarPorTipo(String tipo) throws Exception {
         if (tipo == null || tipo.trim().isEmpty()) {
@@ -184,8 +181,8 @@ public class AtividadeService {
             throw new Exception("Data de execução não pode ser anterior a " + dataLimite);
         }
 
-        // Opcional: não permitir datas futuras muito distantes
-        LocalDate dataFuturaLimite = LocalDate.now().plusMonths(6);
+        // limitar datas futuras
+        LocalDate dataFuturaLimite = LocalDate.now().plusMonths(1);
         if (data.isAfter(dataFuturaLimite)) {
             throw new Exception("Data de execução não pode ser superior a " + dataFuturaLimite);
         }
