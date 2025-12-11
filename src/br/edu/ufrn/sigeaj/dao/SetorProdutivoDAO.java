@@ -14,7 +14,7 @@ import java.util.List;
 public class SetorProdutivoDAO {
 
     /**
-     * Insere um novo setor produtivo no banco de dados.
+     * Inserir novo setor produtivo.
      */
     public boolean inserir(SetorProdutivo setor) throws SQLException {
         String sql = "INSERT INTO setor_produtivo (nome, descricao, responsavel) VALUES (?, ?, ?)";
@@ -41,7 +41,7 @@ public class SetorProdutivoDAO {
     }
 
     /**
-     * Atualiza um setor produtivo existente.
+     * Atualizar setor produtivo existente.
      */
     public boolean atualizar(SetorProdutivo setor) throws SQLException {
         String sql = "UPDATE setor_produtivo SET nome = ?, descricao = ?, responsavel = ? WHERE id = ?";
@@ -59,8 +59,7 @@ public class SetorProdutivoDAO {
     }
 
     /**
-     * Remove um setor produtivo do banco de dados.
-     * Nota: devido ao CASCADE na FK, também remove atividades e registros relacionados.
+     * Remove setor produtivo do banco de dados.
      */
     public boolean remover(Long id) throws SQLException {
         String sql = "DELETE FROM setor_produtivo WHERE id = ?";
@@ -74,7 +73,7 @@ public class SetorProdutivoDAO {
     }
 
     /**
-     * Busca um setor produtivo por ID.
+     * Busca setor produtivo por ID.
      */
     public SetorProdutivo buscarPorId(Long id) throws SQLException {
         String sql = "SELECT * FROM setor_produtivo WHERE id = ?";
@@ -95,7 +94,7 @@ public class SetorProdutivoDAO {
     }
 
     /**
-     * Lista todos os setores produtivos cadastrados.
+     * Lista todos os setores produtivos.
      */
     public List<SetorProdutivo> listarTodos() throws SQLException {
         List<SetorProdutivo> setores = new ArrayList<>();
@@ -114,7 +113,7 @@ public class SetorProdutivoDAO {
     }
 
     /**
-     * Verifica se já existe um setor com o nome informado.
+     * Verifica se existe um setor com o nome informado.
      */
     public boolean existeNome(String nome) throws SQLException {
         String sql = "SELECT COUNT(*) FROM setor_produtivo WHERE LOWER(nome) = LOWER(?)";
@@ -136,7 +135,6 @@ public class SetorProdutivoDAO {
 
     /**
      * Verifica se já existe um setor com o nome informado, excluindo um ID específico
-     * (útil para validação na edição).
      */
     public boolean existeNomeExceto(String nome, Long idExceto) throws SQLException {
         String sql = "SELECT COUNT(*) FROM setor_produtivo WHERE LOWER(nome) = LOWER(?) AND id != ?";
@@ -158,7 +156,29 @@ public class SetorProdutivoDAO {
     }
 
     /**
-     * Método auxiliar para extrair um objeto SetorProdutivo do ResultSet.
+     * 4.b - FILTRO 1: Busca setores por nome (pesquisa parcial).
+     */
+    public List<SetorProdutivo> buscarPorNome(String nome) throws SQLException {
+        List<SetorProdutivo> setores = new ArrayList<>();
+        String sql = "SELECT * FROM setor_produtivo WHERE LOWER(nome) LIKE LOWER(?) ORDER BY nome";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + nome + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    setores.add(extrairSetorDoResultSet(rs));
+                }
+            }
+        }
+
+        return setores;
+    }
+
+    /**
+     * Método auxiliar extrair um objeto SetorProdutivo.
      */
     private SetorProdutivo extrairSetorDoResultSet(ResultSet rs) throws SQLException {
         SetorProdutivo setor = new SetorProdutivo();

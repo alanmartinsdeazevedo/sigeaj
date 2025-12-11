@@ -146,6 +146,57 @@ public class AtividadeDAO {
     }
 
     /**
+     * 4.b - FILTRO 2: Busca atividades por período de data.
+     */
+    public List<Atividade> buscarPorPeriodo(LocalDate dataInicio, LocalDate dataFim) throws SQLException {
+        List<Atividade> atividades = new ArrayList<>();
+        String sql = "SELECT a.*, s.nome AS setor_nome FROM atividade a " +
+                    "INNER JOIN setor_produtivo s ON a.setor_id = s.id " +
+                    "WHERE a.data_execucao BETWEEN ? AND ? " +
+                    "ORDER BY a.data_execucao DESC";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setDate(1, Date.valueOf(dataInicio));
+            stmt.setDate(2, Date.valueOf(dataFim));
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    atividades.add(extrairAtividadeDoResultSet(rs));
+                }
+            }
+        }
+
+        return atividades;
+    }
+
+    /**
+     * 4.b - FILTRO ADICIONAL: Busca atividades por tipo.
+     */
+    public List<Atividade> buscarPorTipo(String tipo) throws SQLException {
+        List<Atividade> atividades = new ArrayList<>();
+        String sql = "SELECT a.*, s.nome AS setor_nome FROM atividade a " +
+                    "INNER JOIN setor_produtivo s ON a.setor_id = s.id " +
+                    "WHERE LOWER(a.tipo) LIKE LOWER(?) " +
+                    "ORDER BY a.data_execucao DESC";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + tipo + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    atividades.add(extrairAtividadeDoResultSet(rs));
+                }
+            }
+        }
+
+        return atividades;
+    }
+
+    /**
      * Método auxiliar para extrair um objeto Atividade do ResultSet.
      */
     private Atividade extrairAtividadeDoResultSet(ResultSet rs) throws SQLException {

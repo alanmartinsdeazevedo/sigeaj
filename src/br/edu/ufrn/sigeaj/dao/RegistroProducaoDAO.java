@@ -148,6 +148,31 @@ public class RegistroProducaoDAO {
     }
 
     /**
+     * 4.b - FILTRO 3: Busca registros de produção por produto.
+     */
+    public List<RegistroProducao> buscarPorProduto(String produto) throws SQLException {
+        List<RegistroProducao> registros = new ArrayList<>();
+        String sql = "SELECT r.*, s.nome AS setor_nome FROM registro_producao r " +
+                    "INNER JOIN setor_produtivo s ON r.setor_id = s.id " +
+                    "WHERE LOWER(r.produto) LIKE LOWER(?) " +
+                    "ORDER BY r.data_registro DESC";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + produto + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    registros.add(extrairRegistroDoResultSet(rs));
+                }
+            }
+        }
+
+        return registros;
+    }
+
+    /**
      * Método auxiliar para extrair um objeto RegistroProducao do ResultSet.
      */
     private RegistroProducao extrairRegistroDoResultSet(ResultSet rs) throws SQLException {

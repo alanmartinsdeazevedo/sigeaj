@@ -44,6 +44,15 @@ public class SetorProdutivoController {
     @FXML
     private Button btnCancelar;
 
+    @FXML
+    private TextField txtBuscar;
+
+    @FXML
+    private Button btnBuscar;
+
+    @FXML
+    private Button btnLimparBusca;
+
     private final SetorProdutivoService setorService;
     private final ObservableList<SetorProdutivo> setores;
     private SetorProdutivo setorSelecionado;
@@ -203,6 +212,38 @@ public class SetorProdutivoController {
     @FXML
     public void onCancelar() {
         limparCampos();
+    }
+
+    /**
+     * FILTRO: Busca setores por nome.
+     * Atende requisito 4.b - filtros de consulta.
+     */
+    @FXML
+    public void onBuscar() {
+        try {
+            String termoBusca = txtBuscar.getText();
+            setores.clear();
+
+            if (termoBusca == null || termoBusca.trim().isEmpty()) {
+                // Se busca vazia, lista todos
+                setores.addAll(setorService.listarTodos());
+            } else {
+                // Busca filtrada
+                setores.addAll(setorService.buscarPorNome(termoBusca));
+            }
+
+        } catch (Exception e) {
+            exibirErro("Erro ao buscar", e.getMessage());
+        }
+    }
+
+    /**
+     * Limpa o filtro de busca e recarrega todos os setores.
+     */
+    @FXML
+    public void onLimparBusca() {
+        txtBuscar.clear();
+        carregarSetores();
     }
 
     // Métodos utilitários para alertas

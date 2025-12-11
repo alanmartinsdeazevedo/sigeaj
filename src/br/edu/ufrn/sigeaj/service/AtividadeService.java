@@ -115,6 +115,42 @@ public class AtividadeService {
         }
     }
 
+    /**
+     * FILTRO: Busca atividades por período de data.
+     * Atende requisito 4.b - filtros de consulta.
+     */
+    public List<Atividade> buscarPorPeriodo(LocalDate dataInicio, LocalDate dataFim) throws Exception {
+        if (dataInicio == null || dataFim == null) {
+            throw new Exception("Data inicial e final são obrigatórias");
+        }
+
+        if (dataInicio.isAfter(dataFim)) {
+            throw new Exception("Data inicial não pode ser posterior à data final");
+        }
+
+        try {
+            return atividadeDAO.buscarPorPeriodo(dataInicio, dataFim);
+        } catch (SQLException e) {
+            throw new Exception("Erro ao buscar atividades por período: " + e.getMessage());
+        }
+    }
+
+    /**
+     * FILTRO: Busca atividades por tipo.
+     * Atende requisito 4.b - filtros de consulta.
+     */
+    public List<Atividade> buscarPorTipo(String tipo) throws Exception {
+        if (tipo == null || tipo.trim().isEmpty()) {
+            return listarTodos();
+        }
+
+        try {
+            return atividadeDAO.buscarPorTipo(tipo.trim());
+        } catch (SQLException e) {
+            throw new Exception("Erro ao buscar atividades por tipo: " + e.getMessage());
+        }
+    }
+
     // Métodos auxiliares de validação
 
     private void validarCamposObrigatorios(Atividade atividade) throws Exception {

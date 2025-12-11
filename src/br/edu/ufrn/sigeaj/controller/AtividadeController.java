@@ -113,7 +113,6 @@ public class AtividadeController {
     }
 
     private void preencherCampos(Atividade atividade) {
-        // Seleciona o setor no ComboBox
         for (SetorProdutivo setor : cmbSetor.getItems()) {
             if (setor.getId().equals(atividade.getSetorId())) {
                 cmbSetor.setValue(setor);

@@ -107,6 +107,22 @@ public class SetorProdutivoService {
         }
     }
 
+    /**
+     * FILTRO: Busca setores por nome.
+     * Atende requisito 4.b - filtros de consulta.
+     */
+    public List<SetorProdutivo> buscarPorNome(String nome) throws Exception {
+        if (nome == null || nome.trim().isEmpty()) {
+            return listarTodos();
+        }
+
+        try {
+            return setorDAO.buscarPorNome(nome.trim());
+        } catch (SQLException e) {
+            throw new Exception("Erro ao buscar setores: " + e.getMessage());
+        }
+    }
+
     // Métodos auxiliares de validação
 
     private void validarCamposObrigatorios(SetorProdutivo setor) throws Exception {

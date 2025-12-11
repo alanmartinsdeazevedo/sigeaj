@@ -118,6 +118,22 @@ public class RegistroProducaoService {
         }
     }
 
+    /**
+     * FILTRO: Busca registros por produto.
+     * Atende requisito 4.b - filtros de consulta.
+     */
+    public List<RegistroProducao> buscarPorProduto(String produto) throws Exception {
+        if (produto == null || produto.trim().isEmpty()) {
+            return listarTodos();
+        }
+
+        try {
+            return registroDAO.buscarPorProduto(produto.trim());
+        } catch (SQLException e) {
+            throw new Exception("Erro ao buscar registros por produto: " + e.getMessage());
+        }
+    }
+
     // Métodos auxiliares de validação
 
     private void validarCamposObrigatorios(RegistroProducao registro) throws Exception {

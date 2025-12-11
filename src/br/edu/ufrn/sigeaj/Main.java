@@ -25,6 +25,11 @@ public class Main extends Application {
     /**
      * Método principal que inicia a aplicação JavaFX.
      * É chamado automaticamente pelo JavaFX após o método main().
+     *
+     * FLUXO ATUALIZADO (atende requisito 4.a):
+     * 1. Exibe tela inicial (Splash Screen) com logo e identificação
+     * 2. Usuário clica em "Continuar"
+     * 3. Sistema carrega tela de login
      */
     @Override
     public void start(Stage primaryStage) {
@@ -35,18 +40,20 @@ public class Main extends Application {
                 return;
             }
 
-            // Carrega o arquivo FXML da tela de login
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ufrn/sigeaj/view/login.fxml"));
+            // Carrega o arquivo FXML da tela inicial (Splash Screen)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ufrn/sigeaj/view/splash.fxml"));
             Parent root = loader.load();
 
             // Configura a cena e o palco (janela)
             Scene scene = new Scene(root);
-            primaryStage.setTitle("SIGEAJ - Login");
+            primaryStage.setTitle("SIGEAJ - Sistema de Gestão de Setores Produtivos");
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
+            primaryStage.centerOnScreen();
             primaryStage.show();
 
             System.out.println("SIGEAJ iniciado com sucesso!");
+            System.out.println("Exibindo tela inicial (Splash Screen)...");
 
         } catch (Exception e) {
             System.err.println("Erro ao iniciar a aplicação: " + e.getMessage());

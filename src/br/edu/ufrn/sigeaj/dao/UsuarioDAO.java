@@ -10,9 +10,6 @@ import java.util.List;
 
 /**
  * DAO (Data Access Object) para a entidade Usuario.
- * CAMADA DE PERSISTÊNCIA - responsável por todas as operações de banco de dados
- * relacionadas a usuários. Segue o padrão DAO para separar a lógica de acesso
- * a dados da lógica de negócio (Service).
  */
 public class UsuarioDAO {
 
@@ -35,7 +32,7 @@ public class UsuarioDAO {
 
             int rowsAffected = stmt.executeUpdate();
 
-            // Recupera o ID gerado
+            // Recupera o ID
             if (rowsAffected > 0) {
                 try (ResultSet rs = stmt.getGeneratedKeys()) {
                     if (rs.next()) {
