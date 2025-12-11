@@ -9,7 +9,7 @@
 <?import javafx.scene.image.Image?>
 
 <!--
-4.a - ela Inicial (Splash Screen) do SIGEAJ
+4.a - Tela Splash Screen
 -->
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
@@ -25,9 +25,8 @@
                 <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
             </padding>
 
-            <!-- Logo / Ícone representativo (usando formas geométricas) -->
+            <!-- Logo -->
             <VBox alignment="CENTER" spacing="10.0">
-                <!-- Círculo decorativo representando o logo -->
                 <StackPane>
                     <Circle radius="80" fill="#3498db" opacity="0.8"/>
                     <Circle radius="60" fill="#2980b9" opacity="0.9"/>

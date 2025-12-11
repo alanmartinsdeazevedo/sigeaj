@@ -6,7 +6,6 @@
 
 <!--
 Tela de CRUD de Registros de Produção
-VIEW no padrão MVC - gerenciamento de registros de produção.
 -->
 
 <BorderPane xmlns="http://javafx.com/javafx/17"

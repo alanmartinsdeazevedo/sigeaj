@@ -6,8 +6,6 @@
 
 <!--
 Tela de CRUD de Setores Produtivos
-VIEW no padrão MVC - formulário + tabela para gerenciar setores.
-Pode ser editado no Scene Builder.
 -->
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
@@ -69,7 +67,7 @@ Pode ser editado no Scene Builder.
                 <Label text="Setores Cadastrados" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                 <Separator/>
 
-                <!-- FILTRO DE BUSCA - Requisito 4.b -->
+                <!-- FILTRO DE BUSCA -->
                 <HBox spacing="10.0" alignment="CENTER_LEFT" style="-fx-padding: 10 0 10 0;">
                     <Label text="Buscar por nome:"/>
                     <TextField fx:id="txtBuscar" promptText="Digite o nome do setor..." prefWidth="300"/>

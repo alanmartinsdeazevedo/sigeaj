@@ -6,7 +6,6 @@
 
 <!--
 Tela de CRUD de Atividades
-VIEW no padrão MVC - gerenciamento de atividades dos setores.
 -->
 
 <BorderPane xmlns="http://javafx.com/javafx/17"

@@ -6,9 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 <!--
-Tela de Login do SIGEAJ
-Este arquivo FXML representa a VIEW no padrão MVC.
-Pode ser editado no Scene Builder para ajustes visuais.
+Tela de Login
 -->
 
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17"

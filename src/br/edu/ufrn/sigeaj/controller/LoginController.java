@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  * Controller da tela de login.
- * CAMADA VIEW (Controller no padrão MVC) - responsável por gerenciar a interface
+ * CAMADA VIEW - responsável por gerenciar a interface
  * gráfica e intermediar a comunicação entre a VIEW (FXML) e a lógica de negócio (Service).
  */
 public class LoginController {
@@ -32,12 +32,10 @@ public class LoginController {
     }
 
     /**
-     * Método chamado automaticamente após o carregamento do FXML.
-     * Inicializa componentes da tela se necessário.
+     * Inicializa componentes da tela se necessário com configurações iniciais.
      */
     @FXML
     public void initialize() {
-        // Configurações iniciais, se necessário
     }
 
     /**
@@ -53,10 +51,9 @@ public class LoginController {
             // Chama o SERVICE para validar o login (lógica de negócio)
             Usuario usuario = usuarioService.login(email, senha);
 
-            // Armazena o usuário logado para uso nas outras telas
+            // Armazenar o usuário
             usuarioLogado = usuario;
 
-            // Exibe mensagem de sucesso
             exibirSucesso("Login realizado com sucesso!", "Bem-vindo(a), " + usuario.getNome());
 
             // Abre a tela principal
@@ -69,7 +66,7 @@ public class LoginController {
     }
 
     /**
-     * Abre a tela principal do sistema.
+     * Abre a tela principal.
      */
     private void abrirTelaPrincipal() {
         try {
