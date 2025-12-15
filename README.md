@@ -60,6 +60,267 @@ src/main/resources/br/edu/ufrn/sigeaj/
     └── registro_producao.fxml     # CRUD de registros
 ```
 
+## Diagrama de Classes UML
+
+O diagrama abaixo mostra as classes de modelo (entidades) do sistema e seus relacionamentos:
+
+```mermaid
+classDiagram
+    class Usuario {
+        -Long id
+        -String nome
+        -String email
+        -String senha
+        -PerfilUsuario perfil
+        +Usuario()
+        +Usuario(id, nome, email, senha, perfil)
+        +getId() Long
+        +setId(Long)
+        +getNome() String
+        +setNome(String)
+        +getEmail() String
+        +setEmail(String)
+        +getSenha() String
+        +setSenha(String)
+        +getPerfil() PerfilUsuario
+        +setPerfil(PerfilUsuario)
+        +toString() String
+    }
+
+    class PerfilUsuario {
+        <<enumeration>>
+        ADMIN
+        OPERADOR
+        -String descricao
+        +getDescricao() String
+    }
+
+    class SetorProdutivo {
+        -Long id
+        -String nome
+        -String descricao
+        -String responsavel
+        +SetorProdutivo()
+        +SetorProdutivo(id, nome, descricao, responsavel)
+        +getId() Long
+        +setId(Long)
+        +getNome() String
+        +setNome(String)
+        +getDescricao() String
+        +setDescricao(String)
+        +getResponsavel() String
+        +setResponsavel(String)
+        +toString() String
+    }
+
+    class Atividade {
+        -Long id
+        -Long setorId
+        -String setorNome
+        -String tipo
+        -String descricao
+        -LocalDate dataExecucao
+        +Atividade()
+        +Atividade(id, setorId, tipo, descricao, dataExecucao)
+        +getId() Long
+        +setId(Long)
+        +getSetorId() Long
+        +setSetorId(Long)
+        +getSetorNome() String
+        +setSetorNome(String)
+        +getTipo() String
+        +setTipo(String)
+        +getDescricao() String
+        +setDescricao(String)
+        +getDataExecucao() LocalDate
+        +setDataExecucao(LocalDate)
+        +toString() String
+    }
+
+    class RegistroProducao {
+        -Long id
+        -Long setorId
+        -String setorNome
+        -LocalDate dataRegistro
+        -String produto
+        -BigDecimal quantidade
+        -String unidade
+        +RegistroProducao()
+        +RegistroProducao(id, setorId, dataRegistro, produto, quantidade, unidade)
+        +getId() Long
+        +setId(Long)
+        +getSetorId() Long
+        +setSetorId(Long)
+        +getSetorNome() String
+        +setSetorNome(String)
+        +getDataRegistro() LocalDate
+        +setDataRegistro(LocalDate)
+        +getProduto() String
+        +setProduto(String)
+        +getQuantidade() BigDecimal
+        +setQuantidade(BigDecimal)
+        +getUnidade() String
+        +setUnidade(String)
+        +toString() String
+    }
+
+    Usuario --> PerfilUsuario : possui
+    Atividade --> SetorProdutivo : pertence a (setorId)
+    RegistroProducao --> SetorProdutivo : pertence a (setorId)
+```
+
+**Relacionamentos:**
+- `Usuario` **possui** um `PerfilUsuario` (Enum: ADMIN ou OPERADOR)
+- `Atividade` **pertence a** um `SetorProdutivo` (relacionamento via `setorId`)
+- `RegistroProducao` **pertence a** um `SetorProdutivo` (relacionamento via `setorId`)
+
+---
+
+## Diagrama Entidade-Relacionamento (ER)
+
+O diagrama abaixo representa a estrutura do banco de dados PostgreSQL:
+
+```mermaid
+erDiagram
+    USUARIO {
+        SERIAL id PK
+        VARCHAR(100) nome
+        VARCHAR(100) email UK "UNIQUE"
+        VARCHAR(255) senha
+        VARCHAR(20) perfil "CHECK: ADMIN ou OPERADOR"
+    }
+
+    SETOR_PRODUTIVO {
+        SERIAL id PK
+        VARCHAR(100) nome UK "UNIQUE"
+        TEXT descricao
+        VARCHAR(100) responsavel
+    }
+
+    ATIVIDADE {
+        SERIAL id PK
+        INTEGER setor_id FK "ON DELETE CASCADE"
+        VARCHAR(50) tipo
+        TEXT descricao
+        DATE data_execucao
+    }
+
+    REGISTRO_PRODUCAO {
+        SERIAL id PK
+        INTEGER setor_id FK "ON DELETE CASCADE"
+        DATE data_registro
+        VARCHAR(100) produto
+        NUMERIC quantidade "CHECK: quantidade > 0"
+        VARCHAR(20) unidade
+    }
+
+    SETOR_PRODUTIVO ||--o{ ATIVIDADE : "possui (1:N)"
+    SETOR_PRODUTIVO ||--o{ REGISTRO_PRODUCAO : "possui (1:N)"
+```
+
+**Cardinalidades:**
+- Um `SETOR_PRODUTIVO` pode ter **zero ou muitas** `ATIVIDADE` (1:N)
+- Um `SETOR_PRODUTIVO` pode ter **zero ou muitos** `REGISTRO_PRODUCAO` (1:N)
+- Uma `ATIVIDADE` pertence a **exatamente um** `SETOR_PRODUTIVO` (N:1)
+- Um `REGISTRO_PRODUCAO` pertence a **exatamente um** `SETOR_PRODUTIVO` (N:1)
+
+**Constraints de Integridade:**
+- **CASCADE DELETE**: Ao deletar um setor, todas as atividades e registros de produção relacionados são deletados automaticamente
+- **UNIQUE**: Email de usuário e nome de setor devem ser únicos
+- **CHECK**: Perfil deve ser 'ADMIN' ou 'OPERADOR', quantidade deve ser > 0
+
+---
+
+## Dicionário de Dados
+
+Descrição detalhada de todas as tabelas e colunas do banco de dados:
+
+### Tabela: `usuario`
+Armazena os usuários do sistema com suas credenciais e perfis de acesso.
+
+| Coluna | Tipo | Restrições | Descrição |
+|--------|------|------------|-----------|
+| `id` | SERIAL | PRIMARY KEY | Identificador único do usuário (auto-incremento) |
+| `nome` | VARCHAR(100) | NOT NULL | Nome completo do usuário |
+| `email` | VARCHAR(100) | NOT NULL, UNIQUE | Email do usuário (utilizado para login) |
+| `senha` | VARCHAR(255) | NOT NULL | Senha do usuário (armazenada em texto plano) |
+| `perfil` | VARCHAR(20) | NOT NULL, CHECK | Perfil de acesso: 'ADMIN' ou 'OPERADOR' |
+
+**Índices:** PRIMARY KEY em `id`, UNIQUE em `email`
+
+**Constraints:**
+- `email_formato`: Valida formato de email com regex
+- `perfil` CHECK: Aceita apenas 'ADMIN' ou 'OPERADOR'
+
+---
+
+### Tabela: `setor_produtivo`
+Armazena os setores produtivos da Escola Agrícola (Piscicultura, Avicultura, etc).
+
+| Coluna | Tipo | Restrições | Descrição |
+|--------|------|------------|-----------|
+| `id` | SERIAL | PRIMARY KEY | Identificador único do setor (auto-incremento) |
+| `nome` | VARCHAR(100) | NOT NULL, UNIQUE | Nome do setor produtivo |
+| `descricao` | TEXT | - | Descrição detalhada do setor |
+| `responsavel` | VARCHAR(100) | - | Nome do responsável pelo setor |
+
+**Índices:** PRIMARY KEY em `id`, UNIQUE em `nome`
+
+**Constraints:**
+- `nome` UNIQUE: Não permite setores com nomes duplicados
+
+---
+
+### Tabela: `atividade`
+Armazena as atividades realizadas nos setores produtivos (Alimentação, Limpeza, Vacinação, etc).
+
+| Coluna | Tipo | Restrições | Descrição |
+|--------|------|------------|-----------|
+| `id` | SERIAL | PRIMARY KEY | Identificador único da atividade (auto-incremento) |
+| `setor_id` | INTEGER | NOT NULL, FK | Chave estrangeira para `setor_produtivo.id` |
+| `tipo` | VARCHAR(50) | NOT NULL | Tipo da atividade (ex: Alimentação, Limpeza) |
+| `descricao` | TEXT | - | Descrição detalhada da atividade realizada |
+| `data_execucao` | DATE | NOT NULL | Data em que a atividade foi executada |
+
+**Índices:**
+- PRIMARY KEY em `id`
+- INDEX em `setor_id` (performance)
+- INDEX em `data_execucao` (performance)
+
+**Chaves Estrangeiras:**
+- `fk_atividade_setor`: `setor_id` REFERENCES `setor_produtivo(id)` ON DELETE CASCADE
+
+**Constraints:**
+- ON DELETE CASCADE: Ao deletar um setor, todas as atividades são deletadas automaticamente
+
+---
+
+### Tabela: `registro_producao`
+Armazena os registros de produção dos setores (quantidade de produtos produzidos).
+
+| Coluna | Tipo | Restrições | Descrição |
+|--------|------|------------|-----------|
+| `id` | SERIAL | PRIMARY KEY | Identificador único do registro (auto-incremento) |
+| `setor_id` | INTEGER | NOT NULL, FK | Chave estrangeira para `setor_produtivo.id` |
+| `data_registro` | DATE | NOT NULL | Data do registro da produção |
+| `produto` | VARCHAR(100) | NOT NULL | Nome do produto produzido |
+| `quantidade` | NUMERIC(10,2) | NOT NULL, CHECK | Quantidade produzida (precisão de 2 casas decimais) |
+| `unidade` | VARCHAR(20) | NOT NULL | Unidade de medida (kg, litros, unidades, etc) |
+
+**Índices:**
+- PRIMARY KEY em `id`
+- INDEX em `setor_id` (performance)
+- INDEX em `data_registro` (performance)
+
+**Chaves Estrangeiras:**
+- `fk_registro_setor`: `setor_id` REFERENCES `setor_produtivo(id)` ON DELETE CASCADE
+
+**Constraints:**
+- `quantidade` CHECK: Quantidade deve ser maior que zero (quantidade > 0)
+- ON DELETE CASCADE: Ao deletar um setor, todos os registros de produção são deletados automaticamente
+
+---
+
 ## Conceitos de POO Demonstrados
 
 1. **Encapsulamento**: Atributos privados com getters/setters em todas as entidades
